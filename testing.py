@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from naive import Naive
+from RabinKarp import RabinKarp
+import pyhash
 import random
 import time
 import sys
@@ -215,30 +217,45 @@ def main():
     ######Naive tests######
     #init
     naive = Naive()
+    rabinKarp = RabinKarp()
+    hashers = [("FNV 32 bits", pyhash.fnv1_32()), ("Murmur Hash 32 bits",pyhash.murmur1_32()), ("City Hash 32 bits", pyhash.city_32()), ("Spooky Hash 32 bits", pyhash.spooky_32())]
     #setup
-    algorithms = [naive]
+    algorithms = [naive, rabinKarp]
     #tests
     for algorithm in algorithms:
         print "Basic tests for: " + str(algorithm)
-        #basic tests
-        value = no_match_test(algorithm)
-        value = empty_pattern_test(algorithm)
-        value = empty_text_test(algorithm)
-        value = pattern_longer_than_text_test(algorithm)
-        value = pattern_equals_text_test(algorithm)
-        if value: print "Basic tests OK" + "\n"
-        else:
-            print "Basic tests ERROR"
-            return 0
-        #performance tests
-        sys.stdout.write(BOLD)
-        print "Performance tests for: ",
-        sys.stdout.write(CYAN)
-        print str(algorithm)
-        sys.stdout.write(RESET)
-        #Testing
-        for test in TYPES:
-            text_testing(algorithm, test[0], test[1], test[2], test[3])
+        lenHashers = 1;
+        if (str(algorithm) == "Rabin-Karp Algorithm"):
+            lenHashers = len(hashers)
+
+        for i in xrange(lenHashers):
+            #si es el algoritmo de Rabin Karp se van seteando disntintos algoritmos
+            if (str(algorithm) == "Rabin-Karp Algorithm"):
+                algorithm.setHasher(hashers[i][1])
+                sys.stdout.write(BOLD)
+                print "Funcion de Hash usada: ",
+                sys.stdout.write(CYAN)
+                print hashers[i][0]
+                sys.stdout.write(RESET)
+            #basic tests
+            value = no_match_test(algorithm)
+            value = empty_pattern_test(algorithm)
+            value = empty_text_test(algorithm)
+            value = pattern_longer_than_text_test(algorithm)
+            value = pattern_equals_text_test(algorithm)
+            if value: print "Basic tests OK" + "\n"
+            else:
+                print "Basic tests ERROR"
+                return 0
+            #performance tests
+            sys.stdout.write(BOLD)
+            print "Performance tests for: ",
+            sys.stdout.write(CYAN)
+            print str(algorithm)
+            sys.stdout.write(RESET)
+            #Testing
+            for test in TYPES:
+                text_testing(algorithm, test[0], test[1], test[2], test[3])
 
 
 if __name__ == '__main__':
