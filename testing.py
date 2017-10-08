@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from naive import Naive
+from zt import ZT
 from RabinKarp import RabinKarp
 import pyhash
 import random
@@ -217,10 +218,11 @@ def main():
     ######Naive tests######
     #init
     naive = Naive()
+    zt = ZT()
     rabinKarp = RabinKarp()
     hashers = [("FNV 32 bits", pyhash.fnv1_32()), ("Murmur Hash 32 bits",pyhash.murmur1_32()), ("City Hash 32 bits", pyhash.city_32()), ("Spooky Hash 32 bits", pyhash.spooky_32())]
     #setup
-    algorithms = [naive, rabinKarp]
+    algorithms = [zt, naive, rabinKarp]
     #tests
     for algorithm in algorithms:
         print "Basic tests for: " + str(algorithm)
