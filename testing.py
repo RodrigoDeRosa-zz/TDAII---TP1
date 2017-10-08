@@ -222,7 +222,7 @@ def main():
     rabinKarp = RabinKarp()
     hashers = [("FNV 32 bits", pyhash.fnv1_32()), ("Murmur Hash 32 bits",pyhash.murmur1_32()), ("City Hash 32 bits", pyhash.city_32()), ("Spooky Hash 32 bits", pyhash.spooky_32())]
     #setup
-    algorithms = [zt, naive, rabinKarp]
+    algorithms = [naive, rabinKarp,zt]
     #tests
     for algorithm in algorithms:
         print "Basic tests for: " + str(algorithm)
