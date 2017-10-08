@@ -7,6 +7,7 @@ class StringMatching(object):
     def __init__(self):
         self.pattern = ""
         self.text = ""
+        self.patterns = []
 
     def set_pattern(self, P):
         """Actualiza el patrón por uno nuevo recibido.
@@ -21,3 +22,10 @@ class StringMatching(object):
             @return {void}
         """
         self.text = T
+
+    def set_n_patterns(self, Ps):
+        """Actualiza el patrón por uno nuevo recibido.
+            @param P {List of strings}: Patterns.
+            @return {void}
+        """
+        self.patterns = Ps

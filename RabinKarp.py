@@ -56,3 +56,55 @@ class RabinKarp(StringMatching):
 
         #Devolvemos la lista
         return matchs
+
+
+    def find_multiple_match(self):
+        """Encuentra todos los matchs de los n patrones en T. Se asume un tamaño
+            fijo m para cada patron.
+            @return {List}: contiene las posiciones de inicio de todos
+                            los matchs de los n Ps en T."""
+        #definicion de variables para no usar 'self.' todo el tiempo
+        Ps = self.patterns
+        T = self.text
+        H = self.hasher
+        #largo de los strings
+        t_len = len(T)
+        p_len = len(Ps[0])
+        #largo del set
+        set_len = len(Ps)
+        #lista de matchs
+        matchs = []
+
+        #calculo los valores de hash para cada patron
+        hPatterns = []
+        for P in Ps:
+            #Valor de hash del patron
+            hPatterns.append(H(P))
+
+        # ciclo principal del algoritmo
+        for j in xrange(t_len):
+
+            #se chequean los valores de hash del patron contra el
+            #valor de hash de la palabra actual
+            #solo si hay un match se verifica letra por letra
+            hStringValue = H(T[j:p_len + j])
+
+            #si hay match
+            for k in xrange(set_len):
+
+                hPatternValue = hPatterns[k]
+                P = Ps[k]
+
+                if (hPatternValue == hStringValue):
+
+                    #se verifica letra por letra
+                    for i in xrange(p_len):
+                        # Si se va de rango, cortamos.
+                        if (j + i == t_len): break
+                        # Si son diferentes, avanzamos en T
+                        if (P[i] != T[j + i]): break
+                        # Si i llego a valer el largo de P, entonces hay un match en j
+                        if (i == p_len - 1): matchs.append(j)
+
+        #Devolvemos la lista
+        return matchs

@@ -7,13 +7,13 @@ import pyhash
 
 def main():
     T = "abcxaabcdy"
-    P = "a"
+    P = ["a", "c", "y"]
     rabinKarp = RabinKarp()
     hasher = pyhash.murmur1_32()
     rabinKarp.setHasher(hasher)
-    rabinKarp.set_pattern(P)
+    rabinKarp.set_n_patterns(P)
     rabinKarp.set_text(T)
-    matchs = rabinKarp.find_match()
+    matchs = rabinKarp.find_multiple_match()
     print matchs
 
 main()
