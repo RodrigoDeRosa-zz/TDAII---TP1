@@ -97,9 +97,3 @@ class ZT(StringMatching):
             else:
                 j += max(BMGS[i], ZTBC[ord(texto[j+lenP - 2])][ord(texto[j+lenP-1])] )
         return matches
-"""
-z = ZT()
-z.set_text("Hola amigo mio como estas hio")
-z.set_pattern("io")
-print z.find_match()
-"""
