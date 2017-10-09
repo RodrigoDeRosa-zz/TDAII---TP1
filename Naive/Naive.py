@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from stringMatching import StringMatching
 
 class Naive(StringMatching):
-    """Implementación del algoritmo ingenue de exact matching."""
+    """Implementación del algoritmo ingenuo de exact matching."""
     def __init__(self):
         #Constructor de superclase
         super(StringMatching, self).__init__()
