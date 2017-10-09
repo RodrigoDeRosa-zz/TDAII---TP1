@@ -1,5 +1,4 @@
 PSIZE = 4200 #Maximo tamanioo del patron
-ASIZE = 256 #Tamanio del alfabeto
 
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -9,9 +8,13 @@ class ZT(StringMatching):
     def __init__(self):
         #Constructor de superclase
         super(StringMatching, self).__init__()
+        self.aSize = 256
 
     def __str__(self):
         return "Zhu-Takaoka"
+
+    def setTam(self, t):
+        self.aSize = t
 
     def suffixes( self, lenP ):
 
@@ -59,6 +62,7 @@ class ZT(StringMatching):
 
     def preZtBc(self, lenP ):
         patron = self.pattern
+        ASIZE = self.aSize
         ztbc = [0] * ASIZE
         for i in xrange(ASIZE):
             ztbc[i] = [0] * ASIZE

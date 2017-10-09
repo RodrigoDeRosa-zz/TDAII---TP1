@@ -273,6 +273,8 @@ def main():
                 sys.stdout.write(RESET)
             #Testing
             for test in TYPES:
+                if(str(algorithm) == "Zhu-Takaoka"):
+                    algorithm.setTam(test[1])
                 text_testing(algorithm, test[0], test[1], test[2], test[3])
 
 
