@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from naive import Naive
-from zt import ZT
-from RabinKarp import RabinKarp
+from Naive:Naive import Naive
+from Zhu-Takaoka.zt import ZT
+from RabinKarp.RabinKarp import RabinKarp
 import pyhash
 import random
 import time
@@ -56,9 +56,9 @@ SPANISH = ["Spanish", 106, SPANISH_PATTERNS, SPANISH_FILES]
 PI_FILE = [['Testing Dataset/pi.txt', '1Mb']]
 PI_PATTERNS = []
 pi_alphabet = [str(i) for i in xrange(10)]
-for i in xrange(2, LONGEST_NUMBER_PATTERN + 1):
-    pattern = ""
-    for j in xrange(i):
+for i in xrange(Naive:Naive, LONGEST_NUMBER_PATTERN + 1):
+    pattern = "Zhu-Takaoka."
+    for j RabinKarp.RabinKarpin xrange(i):
         pattern += random.choice(pi_alphabet)
     PI_PATTERNS.append(pattern)
 pattern = ""
@@ -85,7 +85,7 @@ CODE_PATTERNS = ['if', 'define', 'the', 'return', 'int', 'const', 'void', 'inclu
 CODE = ["Code", 114, CODE_PATTERNS, CODE_FILES]
 
 #DATA UNION
-TYPES = [DNA, ENGLISH, SPANISH, PI, RANDOM, CODE]
+TYPES = [PI]#[DNA, ENGLISH, SPANISH, PI, RANDOM, CODE]
 #################################Aux funcs#####################################
 
 def found_matches(list):
@@ -220,13 +220,20 @@ def main():
     naive = Naive()
     zt = ZT()
     rabinKarp = RabinKarp()
-    hashers = [("FNV 32 bits", pyhash.fnv1_32()), ("Murmur Hash 32 bits",pyhash.murmur1_32()), ("City Hash 32 bits", pyhash.city_32()), ("Spooky Hash 32 bits", pyhash.spooky_32())]
+    hashers = [("FNV 32 bits", pyhash.fnv1_32()), \
+               ("Murmur Hash 32 bits", pyhash.murmur1_32()), \
+               ("City Hash 32 bits", pyhash.city_32()), \
+               ("Spooky Hash 32 bits", pyhash.spooky_32())]
     #setup
     algorithms = [naive, rabinKarp,zt]
     #tests
     for algorithm in algorithms:
-        print "Basic tests for: " + str(algorithm)
-        lenHashers = 1;
+        sys.stdout.write(BOLD)
+        print "\nBasic tests for: ",
+        sys.stdout.write(CYAN)
+        print str(algorithm)
+        sys.stdout.write(RESET)
+        lenHashers = 1
         if (str(algorithm) == "Rabin-Karp Algorithm"):
             lenHashers = len(hashers)
 
@@ -234,9 +241,9 @@ def main():
             #si es el algoritmo de Rabin Karp se van seteando disntintos algoritmos
             if (str(algorithm) == "Rabin-Karp Algorithm"):
                 algorithm.setHasher(hashers[i][1])
-                sys.stdout.write(BOLD)
-                print "Funcion de Hash usada: ",
-                sys.stdout.write(CYAN)
+                sys.stdout.write(RED)
+                print "  Hashing function: ",
+                sys.stdout.write(GREEN)
                 print hashers[i][0]
                 sys.stdout.write(RESET)
             #basic tests
@@ -245,16 +252,25 @@ def main():
             value = empty_text_test(algorithm)
             value = pattern_longer_than_text_test(algorithm)
             value = pattern_equals_text_test(algorithm)
-            if value: print "Basic tests OK" + "\n"
+            if value: print "  Basic tests OK"
             else:
                 print "Basic tests ERROR"
                 return 0
+        for i in xrange(lenHashers):
             #performance tests
-            sys.stdout.write(BOLD)
-            print "Performance tests for: ",
-            sys.stdout.write(CYAN)
-            print str(algorithm)
-            sys.stdout.write(RESET)
+            if (i == 0):
+                sys.stdout.write(BOLD)
+                print "Performance tests for: ",
+                sys.stdout.write(CYAN)
+                print str(algorithm)
+                sys.stdout.write(RESET)
+            if (str(algorithm) == "Rabin-Karp Algorithm"):
+                algorithm.setHasher(hashers[i][1])
+                sys.stdout.write(RED)
+                print "\n  Hashing function: ",
+                sys.stdout.write(GREEN)
+                print hashers[i][0]
+                sys.stdout.write(RESET)
             #Testing
             for test in TYPES:
                 text_testing(algorithm, test[0], test[1], test[2], test[3])

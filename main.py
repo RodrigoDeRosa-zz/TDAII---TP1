@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from naive import Naive
-from RabinKarp import RabinKarp
+from Naive.Naive import Naive
+from RabinKarp.RabinKarp import RabinKarp
 import pyhash
 
 def main():
     T = "abcxaabcdy"
-    P = ["a", "c", "y"]
+    P = ["ab", "cx", "ya"]
     rabinKarp = RabinKarp()
     hasher = pyhash.murmur1_32()
     rabinKarp.setHasher(hasher)

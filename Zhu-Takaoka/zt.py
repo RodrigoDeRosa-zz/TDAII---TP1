@@ -1,6 +1,8 @@
 PSIZE = 4200 #Maximo tamanioo del patron
 ASIZE = 256 #Tamanio del alfabeto
 
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from stringMatching import StringMatching
 
 class ZT(StringMatching):
