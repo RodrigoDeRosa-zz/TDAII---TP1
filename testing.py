@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from Naive:Naive import Naive
-from Zhu-Takaoka.zt import ZT
+from Naive.Naive import Naive
+from ZhuTakaoka.zt import ZT
 from RabinKarp.RabinKarp import RabinKarp
+from Colussi.MorrisPratt.MorrisPratt import MorrisPratt
+from Colussi.KnuthMorrisPratt.KnuthMorrisPratt import KnuthMorrisPratt
+from Colussi.Colussi import Colussi
 import pyhash
 import random
 import time
@@ -56,9 +59,9 @@ SPANISH = ["Spanish", 106, SPANISH_PATTERNS, SPANISH_FILES]
 PI_FILE = [['Testing Dataset/pi.txt', '1Mb']]
 PI_PATTERNS = []
 pi_alphabet = [str(i) for i in xrange(10)]
-for i in xrange(Naive:Naive, LONGEST_NUMBER_PATTERN + 1):
-    pattern = "Zhu-Takaoka."
-    for j RabinKarp.RabinKarpin xrange(i):
+for i in xrange(2, LONGEST_NUMBER_PATTERN + 1):
+    pattern = ""
+    for j in xrange(i):
         pattern += random.choice(pi_alphabet)
     PI_PATTERNS.append(pattern)
 pattern = ""
@@ -85,7 +88,7 @@ CODE_PATTERNS = ['if', 'define', 'the', 'return', 'int', 'const', 'void', 'inclu
 CODE = ["Code", 114, CODE_PATTERNS, CODE_FILES]
 
 #DATA UNION
-TYPES = [PI]#[DNA, ENGLISH, SPANISH, PI, RANDOM, CODE]
+TYPES = [DNA, ENGLISH, SPANISH, PI, RANDOM, CODE]
 #################################Aux funcs#####################################
 
 def found_matches(list):
@@ -220,12 +223,15 @@ def main():
     naive = Naive()
     zt = ZT()
     rabinKarp = RabinKarp()
+    mp = MorrisPratt()
+    kmp = KnuthMorrisPratt()
+    colussi = Colussi()
     hashers = [("FNV 32 bits", pyhash.fnv1_32()), \
                ("Murmur Hash 32 bits", pyhash.murmur1_32()), \
                ("City Hash 32 bits", pyhash.city_32()), \
                ("Spooky Hash 32 bits", pyhash.spooky_32())]
     #setup
-    algorithms = [naive, rabinKarp,zt]
+    algorithms = [naive, mp, kmp, colussi, rabinKarp, zt]
     #tests
     for algorithm in algorithms:
         sys.stdout.write(BOLD)
@@ -274,7 +280,6 @@ def main():
             #Testing
             for test in TYPES:
                 text_testing(algorithm, test[0], test[1], test[2], test[3])
-
 
 if __name__ == '__main__':
     main()
