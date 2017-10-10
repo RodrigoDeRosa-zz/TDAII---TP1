@@ -26,13 +26,14 @@ RESET = "\033[0;0m"
 BOLD    = "\033[;1m"
 
 #DNA DATA INIT
-DNA_FILES = [['Testing Dataset/hprt.dat', '56.7kb'], \
-             ['Testing Dataset/stm2.dat', '86.6kb'], \
+DNA_FILES = [['Testing Dataset/hprt_excerpt.dat', '1.6kb'],
+             ['Testing Dataset/hprt.dat', '56.7kb'], \
              ['Testing Dataset/rbs.dat', '180.4kb'], \
              ['Testing Dataset/ecoli.dat', '4.6Mb'] ]
 DNA_PATTERNS = []
 dna_alphabet = ['a','g','c','t']
-for i in xrange(2, LONGEST_DNA_PATTERN + 1):
+dna_sizes = [8, 64, 256, 1024]
+for i in dna_sizes:
     pattern = ""
     for j in xrange(i):
         pattern += random.choice(dna_alphabet)
@@ -41,17 +42,22 @@ pattern = ""
 DNA = ["DNA", 4, DNA_PATTERNS, DNA_FILES]
 
 #ENGLISH DATA INIT
-ENGLISH_FILES = [['Testing Dataset/world192.txt', '2.5Mb'], \
+ENGLISH_FILES = [['Testing Dataset/bible_excerpt.txt', '1.2kb'] \
                  ['Testing Dataset/bible.txt', '4Mb']]
-#10 palabras mas comunes en ingles
-ENGLISH_PATTERNS = ['the', 'be', 'to', 'of', 'and', 'in', 'that', 'have', 'it', 'for']
+#Una palabra corta y una frase larga
+ENGLISH_PATTERNS = ['the', \
+                    'Now therefore, I pray thee, let thy servant abide instead \
+                    of the lad a bondman to my lord; and let the lad go up with \
+                    his brethren']
 ENGLISH = ["English", 90, ENGLISH_PATTERNS, ENGLISH_FILES]
 
 #SPANISH DATA INIT
 SPANISH_FILES = [['Testing Dataset/egmf.txt', '64.5kb'], \
                  ['Testing Dataset/quijote.txt', '2.2Mb']]
-#10 palabras mas comunes en español
-SPANISH_PATTERNS = ['de', 'la', 'que', 'el', 'en', 'los', 'se', 'del', 'las', 'un']
+#Una palabra corta y una frase larga
+SPANISH_PATTERNS = ['de', \
+                    'Con silencio grande estuve escuchando lo que mi amigo me\
+                     decía, y de tal']
 SPANISH = ["Spanish", 106, SPANISH_PATTERNS, SPANISH_FILES]
 
 #RANDOM DATA INIT
@@ -59,7 +65,8 @@ SPANISH = ["Spanish", 106, SPANISH_PATTERNS, SPANISH_FILES]
 PI_FILE = [['Testing Dataset/pi.txt', '1Mb']]
 PI_PATTERNS = []
 pi_alphabet = [str(i) for i in xrange(10)]
-for i in xrange(2, LONGEST_NUMBER_PATTERN + 1):
+pi_sizes = [2, 32, 128, 1024]
+for i in pi_sizes:
     pattern = ""
     for j in xrange(i):
         pattern += random.choice(pi_alphabet)
@@ -72,7 +79,8 @@ RANDOM_PATTERNS = []
 random_alphabet = [i for i in xrange(65, 91)]
 random_alphabet += [i for i in xrange(97, 123)]
 random_alphabet += [32, 33]
-for i in xrange(2, LONGEST_CHARS_PATTERN + 1):
+random_sizes = [8, 64, 256, 1024]
+for i in random_sizes:
     pattern = ""
     for j in xrange(i):
         pattern += chr(random.choice(random_alphabet))
@@ -84,11 +92,11 @@ RANDOM = ["Random Characters", 54, RANDOM_PATTERNS, RANDOM_FILE]
 CODE_FILES = [['Testing Dataset/compress.c', '39.6kb'], \
                  ['Testing Dataset/y.tab.c', '268.4kb']]
 #10 palabras mas comunes en lenguaje C
-CODE_PATTERNS = ['if', 'define', 'the', 'return', 'int', 'const', 'void', 'include', 'to', 'for']
+CODE_PATTERNS = ['if', 'define', 'ifndef', 'include']
 CODE = ["Code", 114, CODE_PATTERNS, CODE_FILES]
 
 #DATA UNION
-TYPES = [DNA, ENGLISH, SPANISH, PI, RANDOM, CODE]
+TYPES = [DNA]#, ENGLISH, SPANISH, PI, RANDOM, CODE]
 #################################Aux funcs#####################################
 
 def found_matches(list):
