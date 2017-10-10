@@ -231,7 +231,7 @@ def main():
                ("City Hash 32 bits", pyhash.city_32()), \
                ("Spooky Hash 32 bits", pyhash.spooky_32())]
     #setup
-    algorithms = [zt]#naive, mp, kmp, colussi, rabinKarp, zt]
+    algorithms = [naive, mp, kmp, colussi, rabinKarp, zt]
     #tests
     for algorithm in algorithms:
         sys.stdout.write(BOLD)

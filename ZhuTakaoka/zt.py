@@ -19,7 +19,7 @@ class ZT(StringMatching):
     def suffixes( self, lenP ):
 
         patron = self.pattern
-
+        #PSIZE = lenP
         #Inicializacion del vector a devolver.
         suf = [0 for x in xrange(0,PSIZE)]
 
@@ -43,6 +43,7 @@ class ZT(StringMatching):
     def preBmGs( self, lenP ):
         patron = self.pattern
         #Inicializacion del vector
+        #PSIZE = lenP
         bmgs = [0 for x in xrange(0,PSIZE)]
         suf = self.suffixes(lenP)
 
@@ -54,7 +55,7 @@ class ZT(StringMatching):
             if(suf[x] == x+1):
                 for y in xrange(1,lenP - 1 - x):
                     if(bmgs[y] == lenP):
-                        bmgs[y] = m-1-x
+                        bmgs[y] = lenP-1-x
         for x in xrange(0,lenP-1):
             bmgs[lenP - 1 - suf[x]] = lenP - 1 - x
         return bmgs
