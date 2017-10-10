@@ -62,16 +62,25 @@ class ZT(StringMatching):
 
     def preZtBc(self, lenP ):
         patron = self.pattern
-        ASIZE = self.aSize
+        ASIZE = 256
+        #Armado de la matriz
         ztbc = [0] * ASIZE
         for i in xrange(ASIZE):
             ztbc[i] = [0] * ASIZE
         for x in xrange(0, ASIZE):
             for y in xrange(0, ASIZE):
                 ztbc[x][y] = lenP
+        #LLenamos cada codigo
         for x in xrange(0,ASIZE):
+            """Marca el primer caracter del patron
+            con lenP-1 (esta mas a la izq)"""
             ztbc[x][ord(patron[0])] = lenP -1
+
         for x in xrange(1, lenP - 1):
+            """Entramos a la posicion de la matriz
+            que corresponde a las posiciones (i-1,i)
+            del patron y le seteamos la posicion en la que
+            se encuentra"""
             ztbc[ord(patron[x-1])][ord(patron[x])] = lenP - 1 - x
         return ztbc
 
