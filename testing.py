@@ -42,7 +42,7 @@ pattern = ""
 DNA = ["DNA", 4, DNA_PATTERNS, DNA_FILES]
 
 #ENGLISH DATA INIT
-ENGLISH_FILES = [['Testing Dataset/bible_excerpt.txt', '1.2kb'] \
+ENGLISH_FILES = [['Testing Dataset/bible_excerpt.txt', '1.2kb'], \
                  ['Testing Dataset/bible.txt', '4Mb']]
 #Una palabra corta y una frase larga
 ENGLISH_PATTERNS = ['the', \
@@ -62,7 +62,8 @@ SPANISH = ["Spanish", 106, SPANISH_PATTERNS, SPANISH_FILES]
 
 #RANDOM DATA INIT
 #Random numbers
-PI_FILE = [['Testing Dataset/pi.txt', '1Mb']]
+PI_FILE = [['Testing Dataset/pi_excerpt.txt', '1.5kb'],
+           ['Testing Dataset/pi.txt', '1Mb']]
 PI_PATTERNS = []
 pi_alphabet = [str(i) for i in xrange(10)]
 pi_sizes = [2, 32, 128, 1024]
@@ -96,7 +97,7 @@ CODE_PATTERNS = ['if', 'define', 'ifndef', 'include']
 CODE = ["Code", 114, CODE_PATTERNS, CODE_FILES]
 
 #DATA UNION
-TYPES = [DNA]#, ENGLISH, SPANISH, PI, RANDOM, CODE]
+TYPES = [DNA, ENGLISH, SPANISH, PI, RANDOM, CODE]
 #################################Aux funcs#####################################
 
 def found_matches(list):
@@ -170,7 +171,7 @@ def pattern_equals_text_test(algorithm):
     return True
 
 #######PERFORMANCE TESTING#######
-def text_testing(algorithm, name, size, patterns, files):
+def text_testing(algorithm, name, size, patterns, files, writer):
     #Buscamos los patrones en los textos
     #Printing and format
     sys.stdout.write(BOLD)
@@ -220,6 +221,7 @@ def text_testing(algorithm, name, size, patterns, files):
             sys.stdout.write(MAGENTA)
             print str(end - start) + "s."
             sys.stdout.write(RESET)
+            writer.writerow([str(algorithm), name, str(size), f[1], str(len(pattern)), end-start])
 
         fd.close()
 
@@ -238,8 +240,17 @@ def main():
                ("Murmur Hash 32 bits", pyhash.murmur1_32()), \
                ("City Hash 32 bits", pyhash.city_32()), \
                ("Spooky Hash 32 bits", pyhash.spooky_32())]
+    #csv
+    import csv
+    try:
+        fd = open('results.csv', 'w')
+    except IOError:
+        print "Error while trying to open file 'results.csv'."
+        return
+    writer = csv.writer(fd, delimiter = ",")
+    writer.writerow(['Algorithm', 'File Type', 'Alphabet Size', 'Text Size', 'Pattern Size', 'Time'])
     #setup
-    algorithms = [naive, mp, kmp, colussi, rabinKarp, zt]
+    algorithms = [naive, mp, kmp, colussi]#, rabinKarp, zt]
     #tests
     for algorithm in algorithms:
         sys.stdout.write(BOLD)
@@ -289,7 +300,8 @@ def main():
             for test in TYPES:
                 if(str(algorithm) == "Zhu-Takaoka"):
                     algorithm.setTam(test[1])
-                text_testing(algorithm, test[0], test[1], test[2], test[3])
+                text_testing(algorithm, test[0], test[1], test[2], test[3], writer)
+    fd.close()
 
 if __name__ == '__main__':
     main()
