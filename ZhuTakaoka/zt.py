@@ -19,7 +19,7 @@ class ZT(StringMatching):
     def suffixes( self, lenP ):
 
         patron = self.pattern
-
+        #PSIZE = lenP
         #Inicializacion del vector a devolver.
         suf = [0 for x in xrange(0,PSIZE)]
 
@@ -43,6 +43,7 @@ class ZT(StringMatching):
     def preBmGs( self, lenP ):
         patron = self.pattern
         #Inicializacion del vector
+        #PSIZE = lenP
         bmgs = [0 for x in xrange(0,PSIZE)]
         suf = self.suffixes(lenP)
 
@@ -54,7 +55,7 @@ class ZT(StringMatching):
             if(suf[x] == x+1):
                 for y in xrange(1,lenP - 1 - x):
                     if(bmgs[y] == lenP):
-                        bmgs[y] = m-1-x
+                        bmgs[y] = lenP-1-x
         for x in xrange(0,lenP-1):
             bmgs[lenP - 1 - suf[x]] = lenP - 1 - x
         return bmgs
@@ -62,16 +63,25 @@ class ZT(StringMatching):
 
     def preZtBc(self, lenP ):
         patron = self.pattern
-        ASIZE = self.aSize
+        ASIZE = 256
+        #Armado de la matriz
         ztbc = [0] * ASIZE
         for i in xrange(ASIZE):
             ztbc[i] = [0] * ASIZE
         for x in xrange(0, ASIZE):
             for y in xrange(0, ASIZE):
                 ztbc[x][y] = lenP
+        #LLenamos cada codigo
         for x in xrange(0,ASIZE):
+            """Marca el primer caracter del patron
+            con lenP-1 (esta mas a la izq)"""
             ztbc[x][ord(patron[0])] = lenP -1
+
         for x in xrange(1, lenP - 1):
+            """Entramos a la posicion de la matriz
+            que corresponde a las posiciones (i-1,i)
+            del patron y le seteamos la posicion en la que
+            se encuentra"""
             ztbc[ord(patron[x-1])][ord(patron[x])] = lenP - 1 - x
         return ztbc
 
