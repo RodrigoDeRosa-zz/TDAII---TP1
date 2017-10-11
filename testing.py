@@ -250,7 +250,7 @@ def main():
     writer = csv.writer(fd, delimiter = ",")
     writer.writerow(['Algorithm', 'File Type', 'Alphabet Size', 'Text Size', 'Pattern Size', 'Time'])
     #setup
-    algorithms = [naive, mp, kmp, colussi]#, rabinKarp, zt]
+    algorithms = [zt,naive]#, mp, kmp, colussi]#, rabinKarp, zt]
     #tests
     for algorithm in algorithms:
         sys.stdout.write(BOLD)
@@ -299,7 +299,7 @@ def main():
             #Testing
             for test in TYPES:
                 if(str(algorithm) == "Zhu-Takaoka"):
-                    algorithm.setTam(test[1])
+                    algorithm.setSize(test[1])
                 text_testing(algorithm, test[0], test[1], test[2], test[3], writer)
     fd.close()
 

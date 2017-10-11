@@ -8,13 +8,32 @@ class ZT(StringMatching):
     def __init__(self):
         #Constructor de superclase
         super(StringMatching, self).__init__()
-        self.aSize = 256
+        self.aSize = 0
+        self.indices = {}
 
     def __str__(self):
         return "Zhu-Takaoka"
 
-    def setTam(self, t):
+    def setSize(self, t):
         self.aSize = t
+
+    def encontrarCaracteres(self):
+        carac = []
+        for ci in self.text:
+            if(ci not in carac):
+                carac.append(ci)
+        carac.sort()
+        return carac
+
+    def crearIndices(self):
+        """Funcion auxiliar para estandarizar los
+        indices de los elementos de un alfabeto y no
+        depender del codigo ascii"""
+        l = self.encontrarCaracteres()
+        i=0
+        for c in l:
+            self.indices[c] = i
+            i+=1
 
     def suffixes( self, lenP ):
 
@@ -86,30 +105,46 @@ class ZT(StringMatching):
         return ztbc
 
     def find_match( self ):
-        patron = self.pattern
-        texto = self.text
-        lenP = len(patron)
-        lenT = len(texto)
+
+        #Me quedo con las 2 longitudes.
+        lenP = len(self.pattern)
+        lenT = len(self.text)
 
         if(lenP <= 0 or lenT<= 0):
             return []
-        BMGS = self.preBmGs( lenP)
-        ZTBC = self.preZtBc( lenP)
+
+        #Creo el diccionario que contiene los indices de los elementos del alfabeto
+        self.crearIndices()
+
+        #Fase de preprocesamiento
+        BMGS = self.preBmGs( lenP )
+        ZTBC = self.preZtBc( lenP )
+
         #Concatenamos el patron 2 veces al final del texto
-        texto += patron
-        texto += patron
+        self.text += self.pattern
+        self.text += self.pattern
+
         matches = []
+
         #Pasamos a buscar el patron en el texto
         contador = 0
         j = 0
         while(j <= lenT - lenP):
             i = lenP - 1
-            while( i >= 0 and patron[i] == texto[i+j]):
+            while( i >= 0 and self.pattern[i] == self.text[i+j]):
                 i-=1
             if(i<0):
                 contador+=1
                 matches.append(j)
                 j += BMGS[0]
             else:
-                j += max(BMGS[i], ZTBC[ord(texto[j+lenP - 2])][ord(texto[j+lenP-1])] )
+                index1 = self.text[j+lenP - 2]
+                index2 = self.text[j+lenP-1]
+                j += max(BMGS[i], ZTBC[ord(index1)][ord(index2)] )
         return matches
+
+z = ZT()
+z.set_text("amigo cigomo estas")
+z.set_pattern("ig")
+z.setSize(256)
+print z.find_match()
