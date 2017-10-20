@@ -84,10 +84,14 @@
 		
 		Este algoritmo es utilizado con alfabetos pequeños, ya que es cuando resulta eficiente. Esto es debido a la dependencia del tamaño del alfabeto con la fase de pre-procesamiento. Además, este algoritmo resulta muy eficiente en multiple string matching en 2 dimensiones.
 		
+		\subsection{Multiple Matching}
+		Debido a lo obtenido en el análisis. Procedimos a implementar los algoritmos de multiple matching tanto para Rabin Karp como para el algoritmo Naive. Estos basicamente utilizan repetidas veces sus versiones simples para encontrar los patrones que recibe. Se tomó como simplificación que todo string preteneciente a la misma lista de patrones tiene la misma longitud. Los resultados dieron lo esperado, resultando mas eficiente Rabin Karp contra el Naive aumentando el porcentaje de mejora cuanto mas grande sea el archivo.
+				
+				
 		\subsection{Conclusiones}
 		
 		El algoritmo anteriormente presentado, es uno de los que mejor tiempos tiene dentro de los algoritmos implementados en dicho trabajo. Además, se puede ver claramente que la fase de pre-procesamiento aumenta abruptamente a medida que aumentamos el tamaño del alfabeto, tanto en espacio como en tiempo. Se concluye, que este algoritmo funciona muy rápidamente cuando el alfabeto o el patrón son chicos.
-Como recomendación adicional, se aconseja utilizarlo para patrones chicos o multiple matching. 
+Como recomendación adicional, se aconseja utilizarlo para patrones chicos o multiple matching utilizando la función de Hash Spooky. 
 
 	\section{Colussi}
 		
@@ -206,5 +210,22 @@ Como recomendación adicional, se aconseja utilizarlo para patrones chicos o mul
 			mejor). Pero en todo el resto (archivos de ADN, textos en español, textos en inglés, código en C) tanto con texto largo
 			y patrón corto como con texto corto y patrón largo, encontramos que este algoritmo no tuvo la performance esperada, siendo
 			superado incluso por el algoritmo ingenuo.
+			
+	\section{Conclusiones generales}
+		Luego del análisis de las pruebas para cada uno de los algoritmos analizados, sacamos las siguientes conclusiones:
+		\begin{itemize}
+			\item El algoritmo de Rabin-Karp alcanza su mayor performance cuando se realiza \emph{multiple string matching}.
+			\item El algoritmo de Zhu-Takaoka es muy efectivo si se utiliza un alfabeto pequeño pero su performance se ve muy
+			afectada cuando el alfabeto es grande, pues la etapa de preprocesamiento se hace muy larga.
+			\item El algoritmo de Colussi, aunque es una optimización de KMP, en la mayoría de los casos no logra ser más veloz que
+			KMP ni MP.
+			\item En caso de no conocer la longitud del alfabeto o cómo está compuesto el mismo, es conveniente usar Colussi (o KMP).
+			\item En caso de querer resolver el \emph{multiple string matching problem}, es conveniente utilizar el algoritmo de
+			Rabin-Karp.
+			\item En el caso de tener un alfabeto pequeño, el mejor algoritmo es el de Zhu-Takaoka.
+			\item En el caso de tener un alfabeto grande, el mejor algoritmo es el de Colussi.
+			\item Para el tamaño del texto, se respeta lo mencionado en los dos items previos; depende del tamaño del alfabeto.
+			
+		\end{itemize}
 		
 \end{document}

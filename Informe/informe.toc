@@ -10,9 +10,11 @@
 \contentsline {subsection}{\numberline {2.2}Implementaci\IeC {\'o}n}{1}
 \contentsline {subsection}{\numberline {2.3}Complejidad}{2}
 \contentsline {subsection}{\numberline {2.4}Investigaci\IeC {\'o}n y aplicaciones}{2}
-\contentsline {subsection}{\numberline {2.5}Conclusiones}{2}
+\contentsline {subsection}{\numberline {2.5}Multiple Matching}{2}
+\contentsline {subsection}{\numberline {2.6}Conclusiones}{2}
 \contentsline {section}{\numberline {3}Colussi}{2}
 \contentsline {subsection}{\numberline {3.1}Funcionamiento}{2}
 \contentsline {subsection}{\numberline {3.2}Implementaci\IeC {\'o}n}{3}
 \contentsline {subsection}{\numberline {3.3}Complejidad}{3}
-\contentsline {subsection}{\numberline {3.4}Caracter\IeC {\'\i }sticas del algoritmo y casos de prueba}{3}
+\contentsline {subsection}{\numberline {3.4}Caracter\IeC {\'\i }sticas del algoritmo y casos de prueba}{4}
+\contentsline {section}{\numberline {4}Conclusiones generales}{4}
