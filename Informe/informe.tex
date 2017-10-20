@@ -63,6 +63,30 @@
 		
 		\subsection{Conclusiones}
 		
-		Para simple matching este algoritmo resulta increíblemente ineficiente dando los peores tiempos ejecución. Sin embargo para múltiple matching es un muy buen algoritmo. Como optimización se siguiere sacar la parte en donde se verifica que la los valores de hashes que tuvieron match sean realmente iguales. Esto funcionaria sin problemas con una función de hashing perfecto (pero al entiza la ejecución), sin embargo si no lo es el algoritmo pasaría a ser randomizado ya que las funciones de hash utilizadas en este caso garantizan pocas colisiones pero no es imposible que ocurran.    	
+		Para simple matching este algoritmo resulta increíblemente ineficiente dando los peores tiempos ejecución. Sin embargo para múltiple matching es un muy buen algoritmo. Como optimización se siguiere sacar la parte en donde se verifica que la los valores de hashes que tuvieron match sean realmente iguales. Esto funcionaria sin problemas con una función de hashing perfecto (pero al entiza la ejecución), sin embargo si no lo es el algoritmo pasaría a ser randomizado ya que las funciones de hash utilizadas en este caso garantizan pocas colisiones pero no es imposible que ocurran.
+		
+	\section{Zhu-Takaoka}
+		
+		\emph{Algoritmo Zhu Rui Feng - Tadao Takaoka 1987}
+		
+		\subsection{Funcionamiento}
+		El algoritmo que esta siendo presentado es una variante del algoritmo de Booyer-Moore. Este 				algoritmo, al igual que el de BM, mantiene la regla de “good suffix” pero reemplaza la regla de 			“bad character” por la regla de “2-substrings”. Lo que hace esta ultima regla es guardar en una 			matriz las apariciones mas a la derecha de cada par de caracteres (a,b) pertenecientes al patrón. 			Entonces el algoritmo va a comparar el texto con el patrón aplicando una de las 2 reglas en caso de 		encontrar un miss o un match.
+		
+		\subsection{Implementación}
+		
+		El algoritmo consta de 2 fases. La primera fase es la de pre-procesamiento en donde se calcula la matriz necesaria para aplicar la regla “2-substrings” y donde se crea el vector para la regla “good suffix” al igual que en el algoritmo de Booyer-Moore. En la segunda fase, el algoritmo alinea el texto con el patrón a izquierda y recorre de derecha a izquierda el patrón comparando carácter a carácter con el texto. En caso de encontrar un miss o de llegar a un match, el algoritmo calcula el máximo entre las 2 reglas antes mencionadas, y shiftea el patrón a derecha en esa cantidad. Esto se repite, hasta que el patrón llega al final del texto. 
+		
+		\subsection{Complejidad}
+		
+		Este algoritmo tiene una complejidad de $O(m+a^2)$ para tiempo y espacio en la fase de pre-procesamiento, siendo a el tamaño del alfabeto. Pero para la fase de búsqueda el algoritmo tiene una complejidad temporal de $O(nm)$, siendo n y m el tamaño del patrón y del texto respectivamente.
+		
+		\subsection{Investigación y aplicaciones}
+		
+		Este algoritmo es utilizado con alfabetos pequeños, ya que es cuando resulta eficiente. Esto es debido a la dependencia del tamaño del alfabeto con la fase de pre-procesamiento. Además, este algoritmo resulta muy eficiente en multiple string matching en 2 dimensiones.
+		
+		\subsection{Conclusiones}
+		
+		El algoritmo anteriormente presentado, es uno de los que mejor tiempos tiene dentro de los algoritmos implementados en dicho trabajo. Además, se puede ver claramente que la fase de pre-procesamiento aumenta abruptamente a medida que aumentamos el tamaño del alfabeto, tanto en espacio como en tiempo. Se concluye, que este algoritmo funciona muy rápidamente cuando el alfabeto o el patrón son chicos.
+Como recomendación adicional, se aconseja utilizarlo para patrones chicos o multiple matching. 
 		
 \end{document}
