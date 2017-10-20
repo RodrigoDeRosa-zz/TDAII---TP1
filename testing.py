@@ -26,13 +26,13 @@ RESET = "\033[0;0m"
 BOLD    = "\033[;1m"
 
 #DNA DATA INIT
-DNA_FILES = [['Testing Dataset/hprt_excerpt.dat', '1.6kb'],
-             ['Testing Dataset/hprt.dat', '56.7kb'], \
-             ['Testing Dataset/rbs.dat', '180.4kb'], \
+DNA_FILES = [['Testing Dataset/hprt_excerpt.dat', '1.6kb'], \
+             #['Testing Dataset/hprt.dat', '56.7kb'], \
+             #['Testing Dataset/rbs.dat', '180.4kb'], \
              ['Testing Dataset/ecoli.dat', '4.6Mb'] ]
 DNA_PATTERNS = []
 dna_alphabet = ['a','g','c','t']
-dna_sizes = [8, 64, 256, 1024]
+dna_sizes = [8, 1024]#, 64, 256, 1024]
 for i in dna_sizes:
     pattern = ""
     for j in xrange(i):
@@ -97,7 +97,7 @@ CODE_PATTERNS = ['if', 'define', 'ifndef', 'include']
 CODE = ["Code", 114, CODE_PATTERNS, CODE_FILES]
 
 #DATA UNION
-TYPES = [DNA, ENGLISH, SPANISH, PI, RANDOM, CODE]
+TYPES = [DNA]#, ENGLISH, SPANISH, PI, RANDOM, CODE]
 #################################Aux funcs#####################################
 
 def found_matches(list):
@@ -236,21 +236,18 @@ def main():
     mp = MorrisPratt()
     kmp = KnuthMorrisPratt()
     colussi = Colussi()
-    hashers = [("FNV 32 bits", pyhash.fnv1_32()), \
-               ("Murmur Hash 32 bits", pyhash.murmur1_32()), \
-               ("City Hash 32 bits", pyhash.city_32()), \
-               ("Spooky Hash 32 bits", pyhash.spooky_32())]
+    hashers = [("Spooky 32 bits", pyhash.spooky_32())]
     #csv
     import csv
     try:
-        fd = open('results.csv', 'w')
+        fd = open('results_all.csv', 'w')
     except IOError:
         print "Error while trying to open file 'results.csv'."
         return
     writer = csv.writer(fd, delimiter = ",")
     writer.writerow(['Algorithm', 'File Type', 'Alphabet Size', 'Text Size', 'Pattern Size', 'Time'])
     #setup
-    algorithms = [zt,naive]#, mp, kmp, colussi]#, rabinKarp, zt]
+    algorithms = [naive, zt, colussi, rabinKarp]# mp, kmp]
     #tests
     for algorithm in algorithms:
         sys.stdout.write(BOLD)
@@ -298,8 +295,6 @@ def main():
                 sys.stdout.write(RESET)
             #Testing
             for test in TYPES:
-                #if(str(algorithm) == "Zhu-Takaoka"):
-                    #algorithm.setSize(test[1])
                 text_testing(algorithm, test[0], test[1], test[2], test[3], writer)
     fd.close()
 
